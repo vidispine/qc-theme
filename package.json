@@ -1,9 +1,9 @@
 {
-  "name": "qc-app",
+  "name": "qc-theme",
   "version": "0.1.0",
-  "homepage": "https://vidispine.github.io/qc-app",
+  "homepage": "https://vidispine.github.io/qc-theme",
   "repository": {
-    "url": "git@github.com:vidispine/qc-app.git"
+    "url": "git@github.com:vidispine/qc-theme.git"
   },
   "private": true,
   "dependencies": {
