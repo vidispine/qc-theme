@@ -1,23 +1,32 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import { MoreVert as MenuIcon } from '@mui/icons-material';
 import { Menu, IconButton } from '@mui/material';
 
-export default ({ icon: IconComponent = MenuIcon, children, size }) => {
+export default ({
+  icon: IconComponent = MenuIcon,
+  button: ButtonComponent = IconButton,
+  children,
+  size,
+  ...rest
+}) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleMenuClick = (event) => {
+    event.preventDefault();
     setAnchorEl(event.currentTarget);
   };
 
-  const handleMenuClose = () => {
+  const handleMenuClose = (event) => {
+    event.preventDefault();
     setAnchorEl(null);
   };
 
   return (
     <>
-      <IconButton onClick={handleMenuClick} disableRipple size={size}>
+      <ButtonComponent onClick={handleMenuClick} disableRipple size={size} {...rest}>
         <IconComponent />
-      </IconButton>
+      </ButtonComponent>
       <Menu
         onClick={handleMenuClose}
         anchorEl={anchorEl}

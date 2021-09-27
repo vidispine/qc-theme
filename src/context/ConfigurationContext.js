@@ -88,58 +88,58 @@ export function useConfiguration({ type }) {
 }
 
 export const ConfigurationProvider = ({ children }) => {
-  const {
-    data: storages,
-    isLoading: isLoadingStorages,
-    isError: isErrorStorages,
-  } = useGetStorages();
+  // const {
+  //   data: storages,
+  //   isLoading: isLoadingStorages,
+  //   isError: isErrorStorages,
+  // } = useGetStorages();
   const {
     data: resources,
-    isLoading: isLoadingResources,
-    isError: isErrorResources,
+    isLoading,
+    isError,
+    // isLoading: isLoadingResources,
+    // isError: isErrorResources,
   } = useGetResources();
 
-  const isLoading = isLoadingStorages || isLoadingResources;
-  const isError = isErrorStorages || isErrorResources;
+  // const isLoading = isLoadingStorages || isLoadingResources;
+  // const isError = isErrorStorages || isErrorResources;
 
-  const onUpdateStorage = ({ input, output }) => {
-    const {
-      protocol,
-      accessKey,
-      secretKey,
-      name,
-      path,
-      // region,
-      id: storageMethodId,
-      storageId,
-    } = {
-      ...input,
-      ...output,
-    };
-    let uri = `${protocol}://${accessKey}:_VSENC__${secretKey}@${name}/${path}`;
-    if (uri.charAt(uri.length - 1) !== '/') uri = uri.concat('/');
-    // if (region && region !== 'auto') uri = uri.concat(`?region=${region}`);
-    if (storageId) {
-      return StorageApi.modifyStorageMethod({ storageMethodId, storageId, queryParams: { uri } });
-    }
-    const storageDocument = {
-      type: 'LOCAL',
-      capacity: 800000000000,
-      method: [{ uri, read: true, write: true, browse: true }],
-      metadata: { field: [] },
-    };
-    if (input) {
-      storageDocument.metadata.field = [{ key: 'transcodeThemeSourceStorage', value: true }];
-    } else if (output) {
-      storageDocument.metadata.field = [{ key: 'transcodeThemeOutputStorage', value: true }];
-    }
-    return StorageApi.createStorage({ storageDocument });
-  };
+  // const onUpdateStorage = ({ input, output }) => {
+  //   const {
+  //     protocol,
+  //     accessKey,
+  //     secretKey,
+  //     name,
+  //     path,
+  //     // region,
+  //     id: storageMethodId,
+  //     storageId,
+  //   } = {
+  //     ...input,
+  //     ...output,
+  //   };
+  //   let uri = `${protocol}://${accessKey}:_VSENC__${secretKey}@${name}/${path}`;
+  //   if (uri.charAt(uri.length - 1) !== '/') uri = uri.concat('/');
+  //   // if (region && region !== 'auto') uri = uri.concat(`?region=${region}`);
+  //   if (storageId) {
+  //     return StorageApi.modifyStorageMethod({ storageMethodId, storageId, queryParams: { uri } });
+  //   }
+  //   const storageDocument = {
+  //     type: 'LOCAL',
+  //     capacity: 800000000000,
+  //     method: [{ uri, read: true, write: true, browse: true }],
+  //     metadata: { field: [] },
+  //   };
+  //   if (input) {
+  //     storageDocument.metadata.field = [{ key: 'transcodeThemeSourceStorage', value: true }];
+  //   } else if (output) {
+  //     storageDocument.metadata.field = [{ key: 'transcodeThemeOutputStorage', value: true }];
+  //   }
+  //   return StorageApi.createStorage({ storageDocument });
+  // };
 
   return (
-    <ConfigurationContext.Provider
-      value={{ onUpdateStorage, storages, resources, isLoading, isError }}
-    >
+    <ConfigurationContext.Provider value={{ resources, isLoading, isError }}>
       {children}
     </ConfigurationContext.Provider>
   );

@@ -19,6 +19,7 @@ const COLOR_MAP = (key) => {
 
 const BatonChart = ({ markers, duration, offset, onSeek = () => null }) => {
   const events = React.useMemo(() => {
+    const splitter = duration / 100;
     return markers.reduce(
       (a, b) => {
         let index;
@@ -28,8 +29,8 @@ const BatonChart = ({ markers, duration, offset, onSeek = () => null }) => {
           if (index !== undefined) return;
           const overallCheck = v.every(({ startTimecode: s, endTimecode: e }) => {
             const equalityCheck = (start - s + end - e) / 2;
-            // if difference is less than 1 second, move down one level
-            if (equalityCheck < 1 && equalityCheck > -1) return false;
+            // if difference is less than 1% of duration, move down one level
+            if (equalityCheck < splitter && equalityCheck > 0 - splitter) return false;
             if (s < start && e > end) return false;
             if (s < start && e > start) return false;
             if (e > start && e < end) return false;
@@ -42,15 +43,21 @@ const BatonChart = ({ markers, duration, offset, onSeek = () => null }) => {
       },
       { 0: [] },
     );
-  }, [markers]);
+  }, [markers, duration]);
   const level = 10;
-  const levels = React.useMemo(() => Object.keys(events).length, [events]);
   return (
-    <Box sx={{ height: (level + 2) * levels, position: 'relative', width: 1 }}>
+    <Box sx={{ width: 1, borderRadius: 1, overflow: 'hidden' }}>
       {Object.entries(events).map(([index, marker]) => (
         <Box
           key={index}
-          sx={{ height: level, backgroundColor: 'background.default', marginTop: '2px' }}
+          sx={{
+            height: level,
+            backgroundColor: 'background.default',
+            position: 'relative',
+            ':not(:first-of-type)': {
+              marginTop: '2px',
+            },
+          }}
         >
           {marker.map((entry) => {
             const { startTimecode, endTimecode, severity } = entry;
@@ -66,7 +73,6 @@ const BatonChart = ({ markers, duration, offset, onSeek = () => null }) => {
                     borderRadius: 1,
                     backgroundColor: COLOR_MAP(severity),
                     position: 'absolute',
-                    top: index * (level + 2),
                     left: `${left}%`,
                     width: `${width > 1 ? width : 1}%`,
                     height: level,

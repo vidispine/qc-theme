@@ -71,6 +71,7 @@ const BatonTimeline = ({ videoEl, highlight }) => {
       sx={{
         backgroundColor: 'background.paper',
         padding: 1,
+        paddingBottom: 2,
         marginTop: 1,
         borderRadius: 1,
       }}

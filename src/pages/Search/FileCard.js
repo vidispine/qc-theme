@@ -3,7 +3,7 @@ import get from 'lodash.get';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
 import { parseMetadataType, parseShapeType } from '@vidispine/vdt-js';
-import { BarChart, PlayArrow } from '@mui/icons-material';
+import { PlayLesson, FindInPage, Delete, InsertDriveFile as FileIcon } from '@mui/icons-material';
 import { withStyles } from '@mui/styles';
 import {
   Tooltip,
@@ -12,12 +12,16 @@ import {
   Checkbox,
   ListItem,
   Paper,
+  Divider,
   Typography,
   ListItemIcon,
+  ListItemText,
+  MenuItem,
   IconButton,
 } from '@mui/material';
 
 import { useBaton } from '../../hooks';
+import { Menu } from '../../components';
 
 const getFileData = (shape = {}) => {
   const { containerComponent = {} } = shape;
@@ -52,6 +56,10 @@ const cols = [
     {
       key: 'title',
       label: 'Title',
+    },
+    {
+      key: 'itemId',
+      label: 'ID',
     },
     {
       key: 'fileSize',
@@ -132,25 +140,36 @@ const styles = ({ spacing, typography }) => ({
 
 const FileCard = ({
   onQc = () => null,
+  onDelete = () => null,
   classes,
   itemType = {},
   checkbox = false,
   interactive = true,
 }) => {
-  const { hasQc } = useBaton(itemType);
+  const { hasQc, reports } = useBaton(itemType);
+  const handleQc = (e) => {
+    e.preventDefault();
+    onQc(itemType);
+  };
+  const { thumbnails: { uri = [] } = {} } = itemType;
+  const [thumbnail] = uri;
   const item = React.useMemo(() => parseItem(itemType), [itemType]);
   return (
     <Paper className={classes.paper}>
-      <ListItem button disableRipple className={classes.root}>
+      <ListItem
+        component={hasQc ? Link : ''}
+        to={hasQc ? `/search/${item.itemId}` : undefined}
+        button
+        disableRipple
+        className={classes.root}
+      >
         {interactive && checkbox && (
           <ListItemIcon>
             <Checkbox />
           </ListItemIcon>
         )}
-        <Avatar variant="square">
-          {itemType.id.split('-').map((value) => (
-            <span key={value}>{value}</span>
-          ))}
+        <Avatar variant="square" src={thumbnail}>
+          {!thumbnail && <FileIcon />}
         </Avatar>
         {cols.map((fields) => (
           <Column key={fields.reduce((a, { key }) => a + key, '')} data={item} fields={fields} />
@@ -158,15 +177,37 @@ const FileCard = ({
         {interactive && (
           <Box height={1} display="flex" flexDirection="column" justifyContent="space-between">
             <Tooltip title="QC file">
-              <IconButton onClick={() => onQc(itemType)}>
-                <BarChart />
+              <IconButton onClick={handleQc}>
+                <PlayLesson />
               </IconButton>
             </Tooltip>
-            <Tooltip disabled={!hasQc} title="Review file">
-              <IconButton component={Link} to={`/search/${item.itemId}`}>
-                <PlayArrow />
-              </IconButton>
-            </Tooltip>
+            <Menu>
+              <MenuItem disabled>
+                <ListItemText primary={hasQc ? `${reports.length} reports` : 'Not yet analyzed'} />
+              </MenuItem>
+              {hasQc && (
+                <MenuItem component={Link} to={`/search/${item.itemId}`}>
+                  <ListItemIcon>
+                    <FindInPage />
+                  </ListItemIcon>
+                  <ListItemText
+                    primary="Review file"
+                    secondary="Review the Baton reports related to this file"
+                  />
+                </MenuItem>
+              )}
+              <Divider />
+              <MenuItem onClick={() => onDelete(item.itemId)}>
+                <ListItemIcon>
+                  <Delete />
+                </ListItemIcon>
+                <ListItemText
+                  primaryTypographyProps={{ color: 'error' }}
+                  primary="Delete item"
+                  secondary="This action cannot be undone"
+                />
+              </MenuItem>
+            </Menu>
           </Box>
         )}
       </ListItem>

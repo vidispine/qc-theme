@@ -15,7 +15,7 @@ const defaultState = {
     // field: [{ name: '__shape_size', value: [{ value: '*' }] }],
   },
   queryParams: {
-    content: 'shape,metadata',
+    content: ['shape', 'metadata', 'thumbnail'],
     field: ['originalFilename:title', 'itemId', 'title'],
     methodMetadata: [{ key: 'format', value: 'SIGNED-AUTO' }],
   },

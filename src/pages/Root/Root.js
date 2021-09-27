@@ -5,10 +5,11 @@ import { AuthProvider } from '@vidispine/vdt-react';
 import { QueryClientProvider } from 'react-query';
 import { ConfigurationProvider, DialogProvider, PresetProvider } from '../../context';
 import { LOGIN_EXPIRES_SECONDS, APP_BASENAME } from '../../const';
-import { Search } from '../Search';
+import Search from '../Search';
 import Login from '../Login';
 import NotFound from '../NotFound';
 import Review from '../Review';
+import Upload from '../Upload';
 import Header from './Header';
 import queryClient from '../../queryClient';
 
@@ -50,6 +51,9 @@ function Root({ classes }) {
                   </Route>
                   <Route exact path="/search/">
                     <Search />
+                  </Route>
+                  <Route exact path="/upload/">
+                    <Upload />
                   </Route>
                   <Redirect exact from="/" push to="/search/" />
                   <Route path="*">

@@ -5,6 +5,7 @@ import { AppBar, Button, Box, Avatar } from '@mui/material';
 import { useAuthContext } from '@vidispine/vdt-react';
 
 import { APP_TITLE, HEADER_LOGO } from '../../const';
+import { UserAvatar } from '../../components';
 
 const styles = ({ spacing, palette }) => ({
   root: {
@@ -56,11 +57,14 @@ function Header({ classes }) {
           <Link variant="text" component={NavLink} to="/search" color="inherit" disableRipple>
             Home
           </Link>
+          <Link variant="text" component={NavLink} to="/upload" color="inherit" disableRipple>
+            Upload
+          </Link>
           <Link variant="text" component={NavLink} to="/about" color="inherit" disableRipple>
             About
           </Link>
         </Box>
-        <Avatar />
+        <UserAvatar userName={userName} onLogout={onLogout} />
       </Box>
     </AppBar>
   );

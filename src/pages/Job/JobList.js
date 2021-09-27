@@ -14,7 +14,7 @@ const NUMBER = 10;
 
 const defaultQueryParams = {
   step: true,
-  type: 'RAW_IMPORT,PLACEHOLDER_IMPORT,TRANSCODE',
+  type: 'RAW_IMPORT,PLACEHOLDER_IMPORT,ANALYZE',
   sort: 'startTime desc',
   number: NUMBER,
 };

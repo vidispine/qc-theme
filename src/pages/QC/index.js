@@ -29,7 +29,12 @@ export const QcDialog = ({ open, onSuccess, onError, onClose, item = {} }) => {
       <DialogTitle>QC</DialogTitle>
       <DialogContent dividers>
         <FileCard itemType={item} interactive={false} />
-        <PresetList entity={entity} selected={selected} setSelected={setSelected} />
+        <PresetList
+          entity={entity}
+          resourceId={resourceId}
+          selected={selected}
+          setSelected={setSelected}
+        />
       </DialogContent>
       <DialogActions>
         <Button onClick={onClose}>Close</Button>

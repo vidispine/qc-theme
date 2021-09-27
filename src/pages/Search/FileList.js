@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSnackbar } from 'notistack';
 import { Box, List, Button } from '@mui/material';
+import { item as ItemApi } from '@vidispine/vdt-api';
 
 import { useDialog } from '../../context';
 import FileCard from './FileCard';
@@ -11,6 +12,20 @@ const FileList = ({ itemListType = {}, page, onChangePage }) => {
   const { showDialog } = useDialog();
   const { enqueueSnackbar } = useSnackbar();
 
+  const onDelete = (itemId) =>
+    showDialog({
+      title: 'Delete item',
+      message: 'Are you sure you want to delete this item?',
+      okText: 'Yes, delete item',
+      noText: 'No, cancel',
+    })
+      .then(() =>
+        ItemApi.removeItem({ itemId })
+          .then(() => enqueueSnackbar('Item deleted'))
+          .catch(() => enqueueSnackbar('Failed to delete item', { variant: 'error' })),
+      )
+      .catch(() => null);
+
   const onQc = (item) =>
     showDialog({ Dialog: QcDialog, item })
       .then(() => enqueueSnackbar('QC Job started!'))
@@ -20,7 +35,13 @@ const FileList = ({ itemListType = {}, page, onChangePage }) => {
       <Box overflow="auto" height={1}>
         <List disablePadding>
           {items.map((itemType) => (
-            <FileCard key={itemType.id} itemType={itemType} allowQc onQc={onQc} />
+            <FileCard
+              key={itemType.id}
+              itemType={itemType}
+              allowQc
+              onQc={onQc}
+              onDelete={onDelete}
+            />
           ))}
         </List>
       </Box>
