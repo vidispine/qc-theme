@@ -18,6 +18,11 @@ object-assign
  * MIT Licensed
  */
 
+/*!
+ 2021 Jason Mulligan <jason.mulligan@avoidwork.com>
+ @version 8.0.3
+*/
+
 /*! ieee754. BSD-3-Clause License. Feross Aboukhadijeh <https://feross.org/opensource> */
 
 /**
