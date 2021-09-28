@@ -1,6 +1,6 @@
 # VidiCore QC Theme
 
-See [Knowledge Base](https://vidispine.atlassian.net/wiki/spaces/IES/pages/2186313784/Transcoding+Themes+for+VidiCore+and+VidiCoder+INT+VDT+XY.Z+UG) for more information on the initial setup.
+See [Knowledge Base](https://vidispine.atlassian.net/wiki/spaces/IES/pages/) for more information on the initial setup.
 
 ## Quick Start
 
