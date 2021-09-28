@@ -60,8 +60,7 @@ export function useGetPreset({ preset, itemId, shapeId, resourceId }) {
 }
 
 export const PresetProvider = ({ children }) => {
-  const [data] = React.useState([]);
-  // const { data = [], isLoading, isError } = useListPresets();
+  const { data = [], isLoading, isError } = useListPresets();
   const [search, setSearch] = React.useState('');
   const onSearch = (v) => setSearch(v);
   const presets = React.useMemo(() => {
@@ -73,8 +72,8 @@ export const PresetProvider = ({ children }) => {
       value={{
         presets,
         onSearch,
-        // isLoading,
-        // isError
+        isLoading,
+        isError,
       }}
     >
       {children}

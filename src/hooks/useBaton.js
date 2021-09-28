@@ -4,7 +4,7 @@ import { bulkymetadata as BulkymetadataApi } from '@vidispine/vdt-api';
 
 const BATON_KEY = 'baton_report_files';
 
-const getBatonReport = ({ itemId, shapeId }) =>
+const getBatonReport = ({ itemId, shapeId, tag }) =>
   BulkymetadataApi.getShapeBulkyMetadata({ itemId, shapeId, key: BATON_KEY })
     .then(({ data = {} }) => {
       const { field = [] } = data;
@@ -18,16 +18,16 @@ const getBatonReport = ({ itemId, shapeId }) =>
           acc[index].files.push({ ...rest });
           return acc;
         }, []);
-      return { itemId, shapeId, testplans };
+      return { itemId, shapeId, tag, testplans };
     })
     .catch(() => false);
 
 export default function useBaton(itemType) {
   const { shape = [], id: itemId } = itemType;
   const queries = useQueries(
-    shape.map(({ id: shapeId }) => ({
+    shape.map(({ id: shapeId, tag }) => ({
       queryKey: ['baton', itemId, shapeId],
-      queryFn: () => getBatonReport({ itemId, shapeId }),
+      queryFn: () => getBatonReport({ itemId, shapeId, tag }),
       refetchOnWindowFocus: false,
       staleTime: Infinity,
       retry: false,

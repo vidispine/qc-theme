@@ -16,9 +16,9 @@ const defaultColumns = [
 const BatonTable = ({ itemType, isLoading, columns = defaultColumns, onHighlight }) => {
   const { reports } = useBaton(itemType);
   if (isLoading) return null;
-  return reports.map(({ itemId, shapeId, testplans }) => (
+  return reports.map(({ itemId, shapeId, tag, testplans }) => (
     <Box key={shapeId}>
-      <Typography variant="h6">{shapeId}</Typography>
+      <Typography variant="h6">{`${tag} [${shapeId}]`}</Typography>
       <Table>
         <caption>{`Found ${testplans.length} report${testplans.length !== 1 ? 's' : ''}`}</caption>
         <TableHead>

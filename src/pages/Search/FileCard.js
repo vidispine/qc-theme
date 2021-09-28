@@ -176,7 +176,7 @@ const FileCard = ({
         ))}
         {interactive && (
           <Box height={1} display="flex" flexDirection="column" justifyContent="space-between">
-            <Tooltip title="QC file">
+            <Tooltip title="Start QC">
               <IconButton onClick={handleQc}>
                 <PlayLesson />
               </IconButton>
@@ -191,7 +191,7 @@ const FileCard = ({
                     <FindInPage />
                   </ListItemIcon>
                   <ListItemText
-                    primary="Review file"
+                    primary="View report"
                     secondary="Review the Baton reports related to this file"
                   />
                 </MenuItem>

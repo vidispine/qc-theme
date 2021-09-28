@@ -1,5 +1,4 @@
 import React from 'react';
-// import get from 'lodash.get';
 import { withStyles } from '@mui/styles';
 import {
   Paper,
@@ -10,7 +9,6 @@ import {
   ListItemSecondaryAction,
   CircularProgress,
 } from '@mui/material';
-// import { Info as InfoIcon } from '@mui/icons-material';
 
 import { useGetPreset } from '../../context';
 
@@ -22,15 +20,7 @@ const styles = ({ spacing }) => ({
   },
 });
 
-export const PresetCard = ({
-  entity,
-  preset,
-  onClick,
-  selected = [],
-  classes,
-  resourceId,
-  // bajs,
-}) => {
+export const PresetCard = ({ entity, preset, onClick, selected = [], classes, resourceId }) => {
   const { itemId, shapeId } = entity;
   const { data = {}, isLoading, isError } = useGetPreset({ preset, itemId, shapeId, resourceId });
   const checked = React.useMemo(() => selected.includes(preset), [selected, preset]);

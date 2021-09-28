@@ -1,17 +1,9 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import moment from 'moment';
-import {
-  Box,
-  Divider,
-  TableCell,
-  IconButton,
-  MenuItem,
-  ListItemIcon,
-  ListItemText,
-} from '@mui/material';
+import { Box, TableCell, IconButton, MenuItem, ListItemIcon, ListItemText } from '@mui/material';
 import { FileIcon } from 'react-file-icon';
-import { Timeline, Delete } from '@mui/icons-material';
+import { Timeline } from '@mui/icons-material';
 
 import { Menu } from '../../components';
 
@@ -49,13 +41,6 @@ const MenuCell = ({ onHighlight }) => (
           <Timeline />
         </ListItemIcon>
         <ListItemText primary="Show on timeline" secondary="Display events on player timeline" />
-      </MenuItem>
-      <Divider />
-      <MenuItem disabled sx={{ color: 'error.main' }}>
-        <ListItemIcon>
-          <Delete />
-        </ListItemIcon>
-        <ListItemText primary="Delete report" secondary="This action cannot be undone" />
       </MenuItem>
     </Menu>
   </TableCell>
