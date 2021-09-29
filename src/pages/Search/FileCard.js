@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from 'react';
 import get from 'lodash.get';
 import moment from 'moment';
@@ -17,7 +18,8 @@ import {
   ListItemIcon,
   ListItemText,
   MenuItem,
-  IconButton,
+  // IconButton,
+  Button,
 } from '@mui/material';
 
 import { useBaton } from '../../hooks';
@@ -156,13 +158,7 @@ const FileCard = ({
   const item = React.useMemo(() => parseItem(itemType), [itemType]);
   return (
     <Paper className={classes.paper}>
-      <ListItem
-        component={hasQc ? Link : ''}
-        to={hasQc ? `/search/${item.itemId}` : undefined}
-        button
-        disableRipple
-        className={classes.root}
-      >
+      <ListItem button disableRipple className={classes.root}>
         {interactive && checkbox && (
           <ListItemIcon>
             <Checkbox />
@@ -175,13 +171,14 @@ const FileCard = ({
           <Column key={fields.reduce((a, { key }) => a + key, '')} data={item} fields={fields} />
         ))}
         {interactive && (
-          <Box height={1} display="flex" flexDirection="column" justifyContent="space-between">
-            <Tooltip title="Start QC">
-              <IconButton onClick={handleQc}>
-                <PlayLesson />
-              </IconButton>
-            </Tooltip>
-            <Menu>
+          <Box
+            height={1}
+            display="flex"
+            flexDirection="column"
+            alignItems="flex-end"
+            justifyContent="space-between"
+          >
+            {/* <Menu size="small">
               <MenuItem disabled>
                 <ListItemText primary={hasQc ? `${reports.length} reports` : 'Not yet analyzed'} />
               </MenuItem>
@@ -207,7 +204,34 @@ const FileCard = ({
                   secondary="This action cannot be undone"
                 />
               </MenuItem>
-            </Menu>
+            </Menu> */}
+            <Button
+              disableElevation
+              size="small"
+              variant="contained"
+              color="primary"
+              startIcon={<PlayLesson />}
+              onClick={handleQc}
+            >
+              Start QC
+            </Button>
+            <Button
+              component={Link}
+              size="small"
+              variant="text"
+              color="inherit"
+              to={`/search/${item.itemId}`}
+            >
+              View report
+            </Button>
+            <Button
+              size="small"
+              variant="text"
+              color="inherit"
+              onClick={() => onDelete(item.itemId)}
+            >
+              Delete item
+            </Button>
           </Box>
         )}
       </ListItem>

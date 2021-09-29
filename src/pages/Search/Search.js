@@ -51,7 +51,7 @@ const Search = () => {
           <Box display="grid" gridTemplateRows="auto 1fr" gap={2}>
             <Paper>
               <Tabs value="input">
-                <Tab disableRipple value="input" label={`Input (${itemListType.hits || 0})`} />
+                <Tab disableRipple value="input" label={`Files (${itemListType.hits || 0})`} />
                 {isLoading && (
                   <Tab
                     disabled
