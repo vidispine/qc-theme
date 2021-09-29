@@ -18,6 +18,7 @@ const defaultState = {
     content: ['shape', 'metadata', 'thumbnail'],
     field: ['originalFilename:title', 'itemId', 'title'],
     methodMetadata: [{ key: 'format', value: 'SIGNED-AUTO' }],
+    'noauth-url': true,
   },
   rowsPerPage: 10,
 };

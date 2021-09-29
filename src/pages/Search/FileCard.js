@@ -216,6 +216,7 @@ const FileCard = ({
               Start QC
             </Button>
             <Button
+              disabled={!hasQc}
               component={Link}
               size="small"
               variant="text"
