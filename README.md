@@ -1,6 +1,6 @@
 # VidiCore QC Theme
 
-See [Knowledge Base](https://vidispine.atlassian.net/wiki/spaces/IES/pages/) for more information on the initial setup.
+See [Knowledge Base](https://support.vidispine.com/space/CKB/2239005186/VidiCore+QC+Theme) for more information on the initial setup.
 
 ## Quick Start
 
