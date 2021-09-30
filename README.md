@@ -25,7 +25,7 @@ This must be set on the S3 bucket to allow playback of media using signed URLs.
 ```
 <CORSConfiguration>
  <CORSRule>
-   <AllowedOrigin>*</AllowedOrigin>
+   <AllowedOrigin>http://localhost:3000/</AllowedOrigin>
    <AllowedMethod>GET</AllowedMethod>
  </CORSRule>
 </CORSConfiguration>
